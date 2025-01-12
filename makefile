@@ -1,34 +1,19 @@
-#vars
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=senhasegura
-POSTGRES_CONTAINER=db
-DATABASE_NAME=my_game
-POSTGRESQL_URL='postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@localhost:5432/$(DATABASE_NAME)?sslmode=disable'
+include db_setup.mk
+include migrate.mk
 
+.PHONY: 
 
-
-.PHONY: up init profile_table add_table  profile_down down
-
-all: up create_db
+all: db_setup migrate
 	@echo "Database setup complete."
 
-up:
-	docker compose up -d
-	@sleep 2
+db.up: db.up
+	@echo "Docker up."
 
-create_db: 	
-	docker compose exec -T $(POSTGRES_CONTAINER) psql -U $(POSTGRES_USER) -f ./sql/create/create_db.sql
-	@sleep 1
+db_down: db.down
+	@echo "Docker down."
 
-init_migrate:
-	migrate create -ext sql -dir ./sql/migrations -seq create_user_profile_table	
+mig.up: mig.up
+	@echo "Migration up."
 
-add_profile_table:
-	migrate -database ${POSTGRESQL_URL} -path ./sql/migrations up
-
-profile_down:
-	migrate -database ${POSTGRESQL_URL} -path ./sql/migrations down
-
-down:
-	docker compose down
-	
+mig.down: mig.down
+	@echo "Migration down."
