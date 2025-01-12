@@ -18,7 +18,7 @@ db.up:
 	@sleep 2
 
 #create database. Input the path to the .sql file
-CREATE_DB_PATH=./sql/creat/create_db.sql
+CREATE_DB_PATH=./sql/create/create_db.sql
 create_db: 	
 	docker compose exec -T $(POSTGRES_CONTAINER) psql -U $(POSTGRES_USER) -f $(CREATE_DB_PATH)
 	@sleep 1

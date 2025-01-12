@@ -4,7 +4,7 @@ POSTGRES_PASSWORD=senhasegura
 POSTGRES_CONTAINER=db
 DATABASE_NAME=my_game
 POSTGRESQL_URL='postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@localhost:5432/$(DATABASE_NAME)?sslmode=disable'
-MIGRATION_NAME=create_user_info_table
+MIGRATION_NAME=
 
 
 .PHONY: init_migrate mig.up mig.down
