@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - ./sql:/sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senhasegura
+    ports:
+      - "5432:5432"
